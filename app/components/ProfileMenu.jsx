@@ -1,63 +1,76 @@
 "use client";
 
-import { Dropdown, Space } from "antd";
-import { signOut, useSession } from "next-auth/react";
+import { Dropdown } from "antd";
+import { signOut } from "next-auth/react";
 import Link from "next/link";
 
-const ProfileMenu = () => {
-
-  const { data: session, status } = useSession();
+const ProfileMenu = ( { session } ) => {
 
   const items = [
     {
       key: "1",
       label: (
-        <Link
-          href={`/profile/${session?.user?._id ?? ""}`}
-        >
-          Mi perfil
-        </Link>
+        <div className="w-full text-slate-200 hover:font-semibold transition-all">
+          <Link  href={`/profile/${session?.user?._id ?? ""}`}>Mi perfil</Link>
+        </div>
       ),
     },
     {
       key: "2",
       label: (
-        <Link
-          href={`/preferences/${session?.user?._id ?? ""}`}
-        >
-          Preferencias
-        </Link>
+        <div className="w-full text-slate-200 hover:text-slate-300 hover:font-semibold transition-all">
+          <Link href={`/admin/invoices?user=${session?.user?._id ?? ""}`}>
+            Mi historial de vuelos
+          </Link>
+        </div>
       ),
     },
+/*     {
+      key: "3",
+      label: (
+        <div className="w-full text-slate-200 hover:text-slate-300 hover:font-semibold transition-all">
+          <Link href={`/preferences/${session?.user?._id ?? ""}`}>
+            Preferencias
+          </Link>
+        </div>
+      ),
+    }, */
     {
-      key: "4",
+      
+      key: "3",
       danger: true,
       label: (
-        <button
-          onClick={() => {
-            signOut({ callbackUrl: "/" });
-          }}
-        >
-          Cerrar Sesión
-        </button>
+        <div className="w-full text-slate-200 hover:text-slate-300 hover:font-semibold transition-all">
+          <button
+          className="w-full h-full text-start"
+            onClick={() => {
+              signOut({ callbackUrl: "/" });
+            }}
+          >
+            Cerrar Sesión
+          </button>
+        </div>
       ),
     },
   ];
 
-  if (!session) {
-    return <Link href="/login">Iniciar Sesión</Link>;
-  }
+  if (!session) return <div className="w-full h-full flex flex-col items-center justify-center hover:bg-[#5C8374] transition-all rounded-3xl">
+    <Link href="/login" className="w-full h-full grid items-center justify-center">Iniciar Sesión</Link>
+  </div> 
 
   return (
-    <Dropdown
-      menu={{
-        items,
-      }}
-    >
-      <a onClick={(e) => e.preventDefault()} className="cursor-pointer">
-        {session?.user?.username ?? ""}
-      </a>
-    </Dropdown>
+    <div className="w-full h-full flex flex-col items-center justify-center hover:bg-[#5C8374] transition-all rounded-3xl">
+      <Dropdown
+        className="w-full h-full grid items-center"
+        arrow
+        menu={{
+          items,
+          style: {background: "#1E293B"}
+        }}
+      >
+        <span className="text-center">{session?.user?.username ?? ""}</span>
+      </Dropdown>
+    </div>
   );
 };
 

@@ -3,6 +3,7 @@ import Credentials from "next-auth/providers/credentials"
 import { connectDB } from "@/db/mongodb"
 import User from "@/db/models/user"
 import bcrypt from 'bcryptjs';
+import Role from "@/db/models/role";
 
 const handler = NextAuth({
   providers: [
@@ -17,7 +18,7 @@ const handler = NextAuth({
           
           const { username, password } = credentials
 
-          const userFound = await User.findOne( { username: username } )
+          const userFound = await User.findOne( { username: username } ).select("+password")
 
           if (!userFound) throw new Error("Invalid credentials")
 
@@ -25,12 +26,19 @@ const handler = NextAuth({
 
           if (!passwordMatch) throw new Error("Invalid credentials")
 
-          return userFound
+          const { role } = userFound
+
+          const { permissions } = await Role.findOne( { role_name: role } )
+
+          const userWithPermissions = { ...userFound.toObject(), permissions };
+
+          return userWithPermissions
         }
     })
   ] ,
   callbacks: {
     jwt ( { account, token, user, profile, session } ) { //BACKEND
+
       if (user) token.user = user //INCLUDES USER ATRIBUTES IN TOKEN 
       return token
     },

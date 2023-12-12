@@ -1,69 +1,24 @@
-import axios from "axios";
+import User from "@/db/models/user";
+import Form from "./components/Form";
+import { connectDB } from "@/db/mongodb";
 
-async function getUserData(userId) {
+async function getUser(userId) {
   try {
-    const response = await axios(
-      `${process.env.SERVER_URL}/api/user?userId=${userId}`
-    );
-
-    const data = await response.data;
-
-    return data;
+    await connectDB();
+    const user = User.findById(userId).select("+password");
+    return user;
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    return {};
   }
 }
 
 export default async function Page({ params: { id } }) {
-  const user = await getUserData(id);
+  const user = await getUser(id);
 
   return (
-    <div className="grid gap-2">
-      <input
-        type="text"
-        name="firstname"
-        id="firstname"
-        placeholder="Nombres..."
-        required
-        value={user.firstname}
-      />
-      <input
-        type="text"
-        name="lastname"
-        id="lastname"
-        placeholder="Apellidos..."
-        required
-        value={user.lastname}
-      />
-      <input
-        type="email"
-        name="email"
-        id="email"
-        placeholder="Correo electrónico..."
-        required
-        value={user.email}
-      />
-      <input
-        type="number"
-        name="phone"
-        id="phone"
-        placeholder="Teléfono..."
-        required
-        value={user.phone}
-      />
-
-      <hr />
-
-      <input
-        type="text"
-        name="username"
-        id="username"
-        placeholder="Enter username..."
-        required
-        value={user.username}
-      />
-
-      <input type="button" value="Modificar" />
+    <div className="w-full h-auto min-h-screen bg-[#092635] grid grid-cols-1 items-center justify-center p-2">
+      <Form user={user} />
     </div>
   );
 }
