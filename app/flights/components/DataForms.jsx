@@ -36,7 +36,7 @@ const DataForms = () => {
           firstname: "",
           lastname: "",
           email: "",
-          phone: 0,
+          phone: "",
         }));
         setTravelerData(initialTravelerData);
     }, [travelers]);

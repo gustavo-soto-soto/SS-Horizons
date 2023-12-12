@@ -44,7 +44,7 @@ const SearchBar = () => {
   const disabledButton = !origin || !destination || !departureDate | !returnDate || !travelers || new Date(returnDate) <= new Date(departureDate) || origin === destination
 
   return (
-    <div className="min-w-full h-24 flex justify-start items-center z-40 gap-2 flex-wrap">
+    <div className="min-w-full h-24 flex justify-start items-center z-40 gap-2 border">
       {contextHolder}
       <div className="w-[24%] max-sm:w-full h-full bg-[#5C8374] p-2 rounded-md shadow-md">
         <Autocomplete key={"airport-origin"} selectedValue={origin} handleSetValue={handleOrigin} />
@@ -58,7 +58,7 @@ const SearchBar = () => {
       <div className="w-[16%] max-sm:w-full h-full bg-[#5C8374] p-2 rounded-md shadow-md relative">
         <DatePicker key={"return-date"} selectedValue={returnDate} handleSetValue={handleReturnDate}/>
       </div>
-      <div className="w-[8%] max-sm:w-full h-full bg-[#5C8374] p-2 rounded-md shadow-md">
+      <div className="w-[9%] max-sm:w-full h-full bg-[#5C8374] p-2 rounded-md shadow-md">
         <InputNumber selectedValue={travelers} handleSetValue={handleTravelers} />
       </div>
       <div className="w-[8%] max-sm:w-full h-full">
