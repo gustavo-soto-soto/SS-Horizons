@@ -2,7 +2,7 @@ import axios from "axios";
 
 async function getUserData(userId) {
   try {
-    const response = await axios(`${process.env.SERVER_URL}/api/user?userId=${userId}`);
+    const response = await axios(`${process.env.SERVER_URL}/api/users/${userId}`);
 
     const data = await response.data
     

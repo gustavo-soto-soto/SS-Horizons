@@ -1,3 +1,7 @@
+import { Skeleton } from "antd";
+
 export default function Loading() {
-    <div>LOADING...</div>
+    return <div className="w-full h-screen bg-[#092635]">
+        <Skeleton/>
+    </div> 
 }

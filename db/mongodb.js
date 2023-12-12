@@ -18,3 +18,15 @@ export const connectDB = async () => {
         return Promise.reject(false)
     }
 }
+
+export const getModelNames = async () => {
+    try {
+        const { connection } = await mongoose.connect(MONGODB_URI)
+        const collections = await connection.db.listCollections().toArray();
+        const collectionNames = collections.map((collection) => collection.name);
+        return collectionNames;
+    } catch (error) {
+        console.error(error);
+        throw new Error(error.message);
+    }
+};
