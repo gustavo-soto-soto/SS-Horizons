@@ -3,18 +3,21 @@
 import { Modal } from "antd";
 import axios from "axios";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function Page({ searchParams }) {
+export default function Page() {
+  const searchParams = useSearchParams();
   const [invoices, setInvoices] = useState([]);
-  const userId = searchParams?.user || "";
+
+  const userId = searchParams.get("user") || "";
 
   async function getInvoices() {
     try {
       const { data } = await axios(
         `/api/invoices?` + (userId ? `query=${userId}` : "")
       );
-      setInvoices(data)
+      setInvoices(data);
     } catch (error) {
       console.error(error);
       return [];
@@ -28,7 +31,7 @@ export default function Page({ searchParams }) {
         title: "El vuelo se ha cancelado y eliminado del sistema",
         content: <div></div>,
         onOk() {
-          return getInvoices()
+          return getInvoices();
         },
         okButtonProps: { className: " w-20 bg-green-700 text-slate-200" },
       });
