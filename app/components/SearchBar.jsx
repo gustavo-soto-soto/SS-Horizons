@@ -47,16 +47,16 @@ const SearchBar = () => {
     <div className="min-w-full h-24 flex justify-start items-center z-40 gap-2">
       {contextHolder}
       <div className="w-[24%] max-sm:w-full h-full bg-[#5C8374] p-2 rounded-md shadow-md">
-        <Autocomplete key={"airport-origin"} selectedValue={origin} handleSetValue={handleOrigin} />
+        <Autocomplete key={"airport-origin"} selectedValue={origin} handleSetValue={handleOrigin} airportType="origin"/>
       </div>
       <div className="w-[24%] max-sm:w-full h-full bg-[#5C8374] p-2 rounded-md shadow-md">
-        <Autocomplete key={"airport-destination"} selectedValue={destination} handleSetValue={handleDestination} />
+        <Autocomplete key={"airport-destination"} selectedValue={destination} handleSetValue={handleDestination} airportType="destination"/>
       </div>
       <div className="w-[16%] max-sm:w-full h-full bg-[#5C8374] p-2 rounded-md shadow-md">
-        <DatePicker key={"departure-date"} selectedValue={departureDate} handleSetValue={handleDepartureDate}/>
+        <DatePicker key={"departure-date"} selectedValue={departureDate} handleSetValue={handleDepartureDate} dateType="departure"/>
       </div>
       <div className="w-[16%] max-sm:w-full h-full bg-[#5C8374] p-2 rounded-md shadow-md relative">
-        <DatePicker key={"return-date"} selectedValue={returnDate} handleSetValue={handleReturnDate}/>
+        <DatePicker key={"return-date"} selectedValue={returnDate} handleSetValue={handleReturnDate} dateType="return"/>
       </div>
       <div className="w-[9%] max-sm:w-full h-full bg-[#5C8374] p-2 rounded-md shadow-md">
         <InputNumber selectedValue={travelers} handleSetValue={handleTravelers} />
