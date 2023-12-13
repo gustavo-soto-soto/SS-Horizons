@@ -4,7 +4,7 @@ import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { CheckOutlined } from "@ant-design/icons";
 
-const Autocomplete = ( { selectedValue="", handleSetValue=function(){} } ) => {
+const Autocomplete = ( { selectedValue="", handleSetValue=function(){}, airportType="" } ) => {
   const inputRef = useRef();
   const [query, setQuery] = useState("");
   const [airports, setAirports] = useState([]);
@@ -46,14 +46,14 @@ const Autocomplete = ( { selectedValue="", handleSetValue=function(){} } ) => {
     <div className="w-full min-h-full relative">
       <div className="w-full flex-col justify-start items-center gap-4">
         <label
-          htmlFor="input-airpoirt-origin"
+          htmlFor={`input-airpoirt-${airportType}`}
           className="w-full text-slate-200"
         >
-          { handleSetValue.name.includes("Origin") ? "Origen" : "Destino" }
+          { airportType === "origin" ? "Origen" : "Destino" }
         </label>
         <div className="w-full flex justify-between items-center gap-4 mt-2">
           <input
-            id="input-airpoirt-origin"
+            id={`input-airpoirt-${airportType}`}
             ref={inputRef}
             type="text"
             value={query}
