@@ -21,7 +21,7 @@ const FlightCard = ({ flight }) => {
 
   const handleClick = () => {
 
-    if (!session){
+    /* if (!session){
       Modal.confirm({
         title: "Para realizar reservas, por favor inicia sesión con tu cuenta o crea una nueva",
         content: (<div>Queremos asegurarnos de brindarte la mejor experiencia</div>),
@@ -35,7 +35,7 @@ const FlightCard = ({ flight }) => {
         cancelText: "Cancelar"
       });
       return
-    }
+    } */
 
     const invoiceData = {
       ...flight,

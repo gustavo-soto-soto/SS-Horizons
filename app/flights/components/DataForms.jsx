@@ -22,7 +22,7 @@ const DataForms = () => {
     }));
     
     const onChangeTab = (key) => {
-        console.log(key);
+      //
     };
 
     const handleClick = (e) => {

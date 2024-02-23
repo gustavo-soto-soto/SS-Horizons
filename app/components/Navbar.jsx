@@ -32,7 +32,7 @@ const Navbar = () => {
           />
         </Link>
       </div>
-      <ul className="w-full h-full flex justify-end items-center gap-8 pr-5">
+      <ul className="w-full h-full flex justify-end items-center gap-8 pr-5 max-sm:hidden">
         <li className={ listItemStyles + (path === "/about" && "text-slate-200 underline underline-offset-4") }>
           <Link href="/about">Quiénes Somos</Link>
         </li>
